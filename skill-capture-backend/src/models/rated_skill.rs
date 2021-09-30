@@ -5,7 +5,7 @@ use super::base_types::{ Score, DateTime };
 use super::skill::{ Skill };
 use super::employee::{ Employee };
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, FromForm)]
 #[serde(crate = "rocket::serde")]
 pub struct RatedSkill {
     score: Score,
