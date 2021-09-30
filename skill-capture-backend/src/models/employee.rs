@@ -1,24 +1,22 @@
-
 use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
 
-mod rated_skill;
-use rated_skill::{ RatedSkill };
+use super::rated_skill::{ RatedSkill };
 
 #[derive(Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct Employee {
-    firstName: String,
-    lastName: String,
+    first_name: String,
+    last_name: String,
     title: String,
-    assignedSkills: Vec<RatedSkill>
+    assigned_skills: Vec<RatedSkill>
 }
 
-pub fn mk_employee(firstName: String, lastName: String, title: String, assignedSkills: Vec<RatedSkill>) -> Employee {
+pub fn mk_employee(first_name: String, last_name: String, title: String, assigned_skills: Vec<RatedSkill>) -> Employee {
     Employee {
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         title,
-        assignedSkills
+        assigned_skills
     }
 }
