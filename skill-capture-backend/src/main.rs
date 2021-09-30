@@ -6,6 +6,10 @@ mod crate::models::employee;
 use employee::{ Employee, mk_employee };
 // use chrono::{DateTime, Duration, Utc};
 
+extern crate dotenv;
+use dotenv::dotenv;
+use std::env;
+
 
 #[get("/")]
 fn index() -> Option<Json<Employee>> {
@@ -21,5 +25,7 @@ fn index() -> Option<Json<Employee>> {
 
 #[launch]
 fn rocket() -> _ {
+    dotenv().ok();
+
     rocket::build().mount("/", routes![index])
 }
