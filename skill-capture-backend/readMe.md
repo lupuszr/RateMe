@@ -1,3 +1,8 @@
+Install diesel CLI for postgreSql:
+
+- cargo install diesel_cli --no-default-features --features postgres
+  https://diesel.rs/guides/getting-started
+
 Init/create DB:
 
 1. you should create new user in your DB driver:
