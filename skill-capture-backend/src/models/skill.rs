@@ -7,7 +7,6 @@ use crate::schema::skill;
 
 #[derive(Queryable, Insertable)]
 #[table_name = "skill"]
-#[serde(crate = "rocket::serde")]
 pub struct Skill {
     pub id: i32,
     pub name: String,
