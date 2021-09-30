@@ -3,7 +3,7 @@ use rocket::serde::{Serialize, Deserialize};
 
 use super::base_types::{ Id };
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, FromForm)]
 #[serde(crate = "rocket::serde")]
 pub struct Skill {
     id: Id,
