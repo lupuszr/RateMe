@@ -9,7 +9,7 @@ use super::employee::{ Employee };
 #[serde(crate = "rocket::serde")]
 pub struct RatedSkill {
     score: Score,
-    who_rated: Employee,
+    // who_rated: Employee,
     created_at: DateTime,
-    skill: Skill
+    // skill: Skill
 }

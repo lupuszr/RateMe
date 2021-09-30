@@ -1,24 +1,26 @@
 #[macro_use] 
 extern crate diesel;
 extern crate dotenv;
-use diesel::pg::PgConnection;
-use diesel::Insertable;
+use diesel::prelude::*;
+
+pub mod schema;
+
 mod models {
     pub mod base_types;
     pub mod employee;
     pub mod rated_skill;
     pub mod skill;
 }
-
+use std::time::SystemTime;
 #[macro_use] extern crate rocket;
 use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
 
+use models::skill::{ Skill };
 use models::employee::{ Employee, mk_employee };
 // use chrono::{DateTime, Duration, Utc};
 
-pub mod schema;
-use schema::employee;
+// use schema::skill;
 use dotenv::dotenv;
 use std::env;
 
@@ -34,17 +36,17 @@ fn index() -> Option<Json<Employee>> {
 
 #[launch]
 fn rocket() -> _ {
+    
     dotenv().ok();
     let connection = establish_connection();
-    let new_employee = Employee{firstname:String::from("aa"), lastname:String::from("zzz"), title: String::from("xxxzzx")};
-    diesel::insert_into(employee::table).values(&new_employee).execute(&connection);
+    
+    let new_employee = Skill{id:1, name: String::from("asdasda"), category: String::from("category__1"), created_at: SystemTime::now(), updated_at: SystemTime::now()};
+    diesel::insert_into(schema::skill::table).values(&new_employee).execute(&connection);
     rocket::build().mount("/", routes![index])
 }
 
 pub fn establish_connection() -> PgConnection {
-    dotenv().ok();
-
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    PgConnection.establish(&database_url)
+    PgConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }

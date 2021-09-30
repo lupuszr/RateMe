@@ -4,20 +4,20 @@ use rocket::serde::{Serialize, Deserialize};
 use super::rated_skill::{ RatedSkill };
 
 
-#[derive(Serialize, Deserialize, Insertable)]
+#[derive(Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct Employee {
+pub struct EmployeeDbo {
     first_name: String,
     last_name: String,
     title: String,
-    // assigned_skills: Vec<RatedSkill>
+    assigned_skills: Vec<RatedSkill>
 }
 
 pub fn mk_employee(first_name: String, last_name: String, title: String, assigned_skills: Vec<RatedSkill>) -> Employee {
-    Employee {
+  EmployeeDbo {
         first_name,
         last_name,
         title,
-        // assigned_skills
+        assigned_skills
     }
 }
