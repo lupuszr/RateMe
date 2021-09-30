@@ -3,6 +3,10 @@ use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
 // use chrono::{DateTime, Duration, Utc};
 
+extern crate dotenv;
+use dotenv::dotenv;
+use std::env;
+
 // todo use chrono
 type DateTime = String;
 type Score = i8;
@@ -41,5 +45,7 @@ fn index() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
+    dotenv().ok();
+
     rocket::build().mount("/", routes![index])
 }
