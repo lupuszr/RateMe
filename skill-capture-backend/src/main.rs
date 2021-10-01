@@ -26,7 +26,7 @@ mod services {
 use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
 
-use models::skill::{ Skill };
+use models::skill::{ Skill, AddSkill };
 use models::employee::{ Employee };
 use dbo::employee_dbo::{mk_employee};
 // use chrono::{DateTime, Duration, Utc};

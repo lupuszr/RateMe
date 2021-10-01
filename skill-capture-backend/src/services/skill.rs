@@ -1,7 +1,7 @@
 use rocket::serde::json::{Json, Value, json};
 use rocket::form::Form;
 use crate::dbo::skill_dbo::{ SkillDbo };
-use crate::models::skill::{ Skill };
+use crate::models::skill::{ Skill,AddSkill };
 use std::time::SystemTime;
 use diesel::prelude::*;
 
@@ -20,7 +20,7 @@ pub fn post_skill(skill: Form<SkillDbo>) -> &'static str {
     println!("Skill {}", skill.category);
     
     let connection = crate::establish_connection();
-    let new_skill = Skill{
+    let new_skill = AddSkill{
         name: String::from("testName"), 
         category: String::from("testCat")
     };
