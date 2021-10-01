@@ -27,6 +27,9 @@ table! {
     }
 }
 
+joinable!(employeeskill -> employee (employee_id));
+joinable!(employeeskill -> skill (skill_id));
+
 allow_tables_to_appear_in_same_query!(
     employee,
     employeeskill,
