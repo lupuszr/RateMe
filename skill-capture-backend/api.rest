@@ -1,5 +1,6 @@
+### get all skills
 # @name get_all_skills
-GET http://localhost:8000/skill
+GET http://localhost:8000/skills
 
 
 ### create
@@ -9,3 +10,17 @@ Content-Type: application/x-www-form-urlencoded
 
 name=skill 22
 &category=kat 22
+
+### GET all employees
+# @name get_all_employees
+GET http://localhost:8000/employees
+
+
+### create
+# @name create_employee
+POST http://localhost:8000/employee
+Content-Type: application/x-www-form-urlencoded
+
+first_name=Viktor
+&last_name=Pelle
+&title=developer

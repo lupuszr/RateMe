@@ -15,9 +15,9 @@ pub struct SkillPostData {
 pub fn get_all_skills() -> Json<Vec<Skill>> {
     use crate::schema::skill::dsl::*;
     let connection = crate::establish_connection();
-    let skillRes = skill.load::<Skill>(&connection);
-    let unpackedSkill = skillRes.unwrap();
-    return Json(unpackedSkill);
+    let skills_res = skill.load::<Skill>(&connection);
+    let unpacked_skill = skills_res.unwrap();
+    return Json(unpacked_skill);
 }
 
 #[post("/", format = "application/x-www-form-urlencoded", data = "<skill>")]

@@ -1,6 +1,6 @@
 use rocket::serde::json::{Json, Value, json};
 use rocket::form::Form;
-use crate::models::employee::{Employee};
+use crate::models::employee::{Employee,AddEmployee};
 use diesel::prelude::*;
 
 #[derive(FromForm)]
@@ -10,23 +10,20 @@ pub struct EmployeePostData {
     title: String
 }
 
-
-// #[get("/")]
-// pub fn get_employee() -> Option<Json<EmployeeDbo>> {
-//     // read from DB!
-//     Some(Json(mk_employee(
-//         String::from("test"),
-//         String::from("k"),
-//         String::from("hell"),
-//         vec![]
-//     )))
-// }
+#[get("/")]
+pub fn get_all_employees() -> Json<Vec<Employee>> {
+    use crate::schema::employee::dsl::*;
+    let connection = crate::establish_connection();
+    let employees_res = employee.load::<Employee>(&connection);
+    let unpacked_employees = employees_res.unwrap();
+    return Json(unpacked_employees);
+}
 
 #[post("/", format = "application/x-www-form-urlencoded", data = "<employee>")]
 pub fn post_employee(employee: Form<EmployeePostData>) -> &'static str {
     let connection = crate::establish_connection();
 
-    let new_employee = Employee{
+    let new_employee = AddEmployee{
         first_name: employee.first_name.clone(),
         last_name: employee.last_name.clone(),
         title: employee.title.clone()

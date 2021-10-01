@@ -47,7 +47,8 @@ fn rocket() -> Rocket<Build> {
     rocket::build()
     .mount("/employee", routes![services::employee::post_employee])
     .mount("/skill", routes![services::skill::post_skill])
-    .mount("/skill", routes![services::skill::get_all_skills])
+    .mount("/skills", routes![services::skill::get_all_skills])
+    .mount("/employees", routes![services::employee::get_all_employees])
 
 }
 
