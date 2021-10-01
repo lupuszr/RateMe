@@ -35,18 +35,38 @@ use dbo::employee_dbo::{mk_employee};
 use dotenv::dotenv;
 use std::env;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+use rocket::http::Header;
+use rocket::{Request, Response};
+use rocket::fairing::{Fairing, Info, Kind};
+
+pub struct CORS;
+
+#[rocket::async_trait]
+impl Fairing for CORS {
+    fn info(&self) -> Info {
+        Info {
+            name: "Attaching CORS headers to responses",
+            kind: Kind::Response
+        }
+    }
+
+    async fn on_response<'r>(&self, _request: &'r Request<'_>, response: &mut Response<'r>) {
+        response.set_header(Header::new("Access-Control-Allow-Origin", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Methods", "POST, GET, PATCH, OPTIONS"));
+        response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+    }
 }
+
 #[launch]
 fn rocket() -> Rocket<Build> {
     dotenv().ok();
 
     // rocket::build().mount("/", routes![index])
     rocket::build()
-    .mount("/employee", routes![services::employee::post_employee])
-    .mount("/skill", routes![services::skill::post_skill])
+    .attach(CORS)
+    .mount("/employees", routes![services::employee::post_employee])
+    .mount("/skills", routes![services::skill::post_skill])
     .mount("/skills", routes![services::skill::get_all_skills])
     .mount("/employees", routes![services::employee::get_all_employees])
 
