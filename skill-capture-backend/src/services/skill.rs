@@ -6,7 +6,7 @@ use std::time::SystemTime;
 use diesel::prelude::*;
 
 #[derive(FromForm)]
-pub struct SkillDboPostData {
+pub struct SkillPostData {
     pub name: String,
     pub category: String
 }
@@ -22,9 +22,7 @@ pub struct SkillDboPostData {
 // }
 
 #[post("/", format = "application/x-www-form-urlencoded", data = "<skill>")]
-pub fn post_skill(skill: Form<SkillDboPostData>) -> &'static str {
-    println!("Skill {}", skill.category);
-    
+pub fn post_skill(skill: Form<SkillPostData>) -> &'static str {
     let connection = crate::establish_connection();
     let new_skill = Skill{
         name: skill.name.clone(), 

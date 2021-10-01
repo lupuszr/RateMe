@@ -43,7 +43,7 @@ fn rocket() -> _ {
     dotenv().ok();
 
     rocket::build()
-        .mount("/employee", routes![services::employee::get_employee])
+        // .mount("/employee", routes![services::employee::get_employee])
         .mount("/employee", routes![services::employee::post_employee])
         .mount("/skill", routes![services::skill::post_skill])
 }
