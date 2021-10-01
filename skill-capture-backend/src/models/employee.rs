@@ -12,7 +12,6 @@ pub struct Employee {
     first_name: String,
     last_name: String,
     title: String,
-    skill: Vec<Skill>,
     created_at: SystemTime,
     updated_at: SystemTime,
 }
