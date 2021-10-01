@@ -9,7 +9,7 @@ export function Query() {
     const [skills, setSkills] = React.useState<Array<Skill>>([])
     const [filter, setFilter] = React.useState('')
     const eff1 = useEffect(() => {
-        listSkills().then(setSkills);
+        listSkills().then(x => setSkills(x));
     }, [])
 
 
@@ -19,11 +19,11 @@ export function Query() {
           <Text>Filter value: {filter}</Text>
         </Pane>
         <Select value={selectedSkill} onChange={event => setSelectedSkill(event.target.value)}>
-        {skills.map(skill => {
+        {skills.map(skill => (
             <option value={skill.name} selected>
                 {skill.name}
             </option>
-        })}
+        ))}
         </Select>
       </Pane>
     )
