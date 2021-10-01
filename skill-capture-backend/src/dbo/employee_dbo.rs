@@ -1,16 +1,15 @@
+use rocket::serde::{self, Serialize, Deserialize};
 use rocket::serde::json::{Json, Value, json};
-use rocket::serde::{Serialize, Deserialize};
 
-use super::rated_skill::{ RatedSkill };
-
+use super::skill_dbo::{ SkillDbo };
 
 #[derive(Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
+#[serde(crate="self::serde")]
 pub struct EmployeeDbo {
     first_name: String,
     last_name: String,
     title: String,
-    assigned_skills: Vec<RatedSkill>
+    assigned_skills: Vec<SkillDbo>
 }
 
 pub fn mk_employee(first_name: String, last_name: String, title: String, assigned_skills: Vec<RatedSkill>) -> Employee {
@@ -20,4 +19,10 @@ pub fn mk_employee(first_name: String, last_name: String, title: String, assigne
         title,
         assigned_skills
     }
+}
+#[derive(FromForm)]
+pub struct EmployeePostData {
+    pub first_name: String,
+    last_name: String,
+    title: String
 }

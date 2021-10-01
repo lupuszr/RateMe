@@ -1,16 +1,17 @@
 use std::time::SystemTime;
-use rocket::serde::json::{Json, Value, json};
-use rocket::serde::{Serialize, Deserialize};
 
+use super::employee::{ Employee };
 
 use crate::schema::skill;
 
-#[derive(Queryable, Insertable)]
+#[derive(Queryable, Insertable, Identifiable)]
 #[table_name = "skill"]
+#[primary_key("id")]
 pub struct Skill {
     pub id: i32,
     pub name: String,
     pub category: String,
+    pub employee: Vec<Employee>,
     pub created_at: SystemTime,
     pub updated_at: SystemTime
 }

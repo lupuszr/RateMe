@@ -8,8 +8,11 @@ pub mod schema;
 mod models {
     pub mod base_types;
     pub mod employee;
-    pub mod rated_skill;
     pub mod skill;
+}
+mod dbo {
+    pub mod employee_dbo;
+    pub mod skill_dbo;
 }
 use std::time::SystemTime;
 
@@ -22,7 +25,8 @@ use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
 
 use models::skill::{ Skill };
-use models::employee::{ Employee, mk_employee };
+use models::employee::{ Employee };
+use dbo::employee_dbo::{mk_employee};
 // use chrono::{DateTime, Duration, Utc};
 
 // use schema::skill;
