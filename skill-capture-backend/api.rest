@@ -1,0 +1,11 @@
+# @name get_all_skills
+GET http://localhost:8000/skill
+
+
+### create
+# @name create_skill
+POST http://localhost:8000/skill
+Content-Type: application/x-www-form-urlencoded
+
+name=skill 22
+&category=kat 22

@@ -11,15 +11,14 @@ pub struct SkillPostData {
     pub category: String
 }
 
-// #[get("/")]
-// pub fn get_skill() -> Option<Json<Skill>> {
-//     Some(Json(mk_employee(
-//         String::from("test"),
-//         String::from("k"),
-//         String::from("hell"),
-//         vec![]
-//     )))
-// }
+#[get("/")]
+pub fn get_all_skills() -> Json<Vec<Skill>> {
+    use crate::schema::skill::dsl::*;
+    let connection = crate::establish_connection();
+    let skillRes = skill.load::<Skill>(&connection);
+    let unpackedSkill = skillRes.unwrap();
+    return Json(unpackedSkill);
+}
 
 #[post("/", format = "application/x-www-form-urlencoded", data = "<skill>")]
 pub fn post_skill(skill: Form<SkillPostData>) -> &'static str {

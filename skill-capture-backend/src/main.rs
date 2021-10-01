@@ -1,6 +1,8 @@
 #[macro_use] 
 extern crate diesel;
 extern crate dotenv;
+use rocket::Build;
+use rocket::Rocket;
 use diesel::prelude::*;
 
 pub mod schema;
@@ -29,7 +31,6 @@ use rocket::serde::{Serialize, Deserialize};
 use models::skill::{ Skill, AddSkill };
 use models::employee::{ Employee };
 use dbo::employee_dbo::{mk_employee};
-// use chrono::{DateTime, Duration, Utc};
 
 use dotenv::dotenv;
 use std::env;
@@ -39,13 +40,15 @@ fn index() -> &'static str {
     "Hello, world!"
 }
 #[launch]
-fn rocket() -> _ {
+fn rocket() -> Rocket<Build> {
     dotenv().ok();
 
+    // rocket::build().mount("/", routes![index])
     rocket::build()
-        // .mount("/employee", routes![services::employee::get_employee])
-        .mount("/employee", routes![services::employee::post_employee])
-        .mount("/skill", routes![services::skill::post_skill])
+    .mount("/employee", routes![services::employee::post_employee])
+    .mount("/skill", routes![services::skill::post_skill])
+    .mount("/skill", routes![services::skill::get_all_skills])
+
 }
 
 pub fn establish_connection() -> PgConnection {

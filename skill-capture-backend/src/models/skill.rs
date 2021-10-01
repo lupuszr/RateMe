@@ -1,4 +1,5 @@
 use std::time::SystemTime;
+use rocket::serde::{self, Serialize, Deserialize};
 
 use super::employee::{ Employee };
 
@@ -14,7 +15,8 @@ pub struct AddSkill {
     // pub created_at:  Option<SystemTime>,
     // pub updated_at:  Option<SystemTime>
 }
-#[derive(Queryable, Identifiable,Debug)]
+#[derive(Queryable, Identifiable,Debug, Serialize, Deserialize)]
+#[serde(crate="self::serde")]
 #[table_name = "skill"]
 #[primary_key("id")]
 pub struct Skill {
