@@ -8,10 +8,10 @@ use crate::schema::employee;
 #[table_name = "employee"]
 #[primary_key("id")]
 pub struct Employee {
-    id: i32,
-    first_name: String,
-    last_name: String,
-    title: String,
-    created_at: SystemTime,
-    updated_at: SystemTime,
+    // id: i32,
+    pub first_name: String,
+    pub last_name: String,
+    pub title: String
+    // created_at: SystemTime,
+    // updated_at: SystemTime,
 }

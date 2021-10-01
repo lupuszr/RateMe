@@ -5,6 +5,12 @@ use crate::models::skill::{ Skill,AddSkill };
 use std::time::SystemTime;
 use diesel::prelude::*;
 
+#[derive(FromForm)]
+pub struct SkillPostData {
+    pub name: String,
+    pub category: String
+}
+
 // #[get("/")]
 // pub fn get_skill() -> Option<Json<Skill>> {
 //     Some(Json(mk_employee(
@@ -16,16 +22,16 @@ use diesel::prelude::*;
 // }
 
 #[post("/", format = "application/x-www-form-urlencoded", data = "<skill>")]
-pub fn post_skill(skill: Form<SkillDbo>) -> &'static str {
-    println!("Skill {}", skill.category);
-    
+pub fn post_skill(skill: Form<SkillPostData>) -> &'static str {
     let connection = crate::establish_connection();
     let new_skill = AddSkill{
-        name: String::from("testName"), 
-        category: String::from("testCat")
+        name: skill.name.clone(), 
+        category: skill.category.clone()
     };
 
     diesel::insert_into(crate::schema::skill::table).values(&new_skill).execute(&connection);
     
-    "Insert successful"
+    let response = format!("Insert of {} skill successful", new_skill.name).to_owned();
+
+    Box::leak(response.into_boxed_str())
 }
