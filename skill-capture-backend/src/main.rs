@@ -10,6 +10,7 @@ mod models {
     pub mod employee;
     pub mod skill;
 }
+
 mod dbo {
     pub mod employee_dbo;
     pub mod skill_dbo;
@@ -18,6 +19,7 @@ use std::time::SystemTime;
 
 mod services {
     pub mod employee;
+    pub mod skill;
 }
 
 #[macro_use] extern crate rocket;
@@ -29,7 +31,6 @@ use models::employee::{ Employee };
 use dbo::employee_dbo::{mk_employee};
 // use chrono::{DateTime, Duration, Utc};
 
-// use schema::skill;
 use dotenv::dotenv;
 use std::env;
 
@@ -39,17 +40,12 @@ fn index() -> &'static str {
 }
 #[launch]
 fn rocket() -> _ {
-    
     dotenv().ok();
-    let connection = establish_connection();
-    
-    let new_employee = Skill{id:1, name: String::from("asdasda"), category: String::from("category__1"), created_at: SystemTime::now(), updated_at: SystemTime::now()};
-    diesel::insert_into(schema::skill::table).values(&new_employee).execute(&connection);
-    rocket::build().mount("/", routes![index])
 
-    // rocket::build()
-    //     .mount("/employee", routes![services::employee::get_employee])
-    //     .mount("/employee", routes![services::employee::post_employee])
+    rocket::build()
+        .mount("/employee", routes![services::employee::get_employee])
+        .mount("/employee", routes![services::employee::post_employee])
+        .mount("/skill", routes![services::skill::post_skill])
 }
 
 pub fn establish_connection() -> PgConnection {

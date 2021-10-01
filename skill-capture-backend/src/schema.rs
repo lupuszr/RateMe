@@ -1,9 +1,8 @@
 table! {
-    employee (id) {
+    skill (id) {
         id -> Int4,
-        first_name -> Text,
-        last_name -> Text,
-        title -> Text,
+        name -> Text,
+        category -> Text,
         created_at -> Timestamp,
         updated_at -> Timestamp,
     }

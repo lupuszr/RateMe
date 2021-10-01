@@ -15,4 +15,5 @@ pub fn get_employee() -> Option<Json<Employee>> {
 #[post("/", format = "application/x-www-form-urlencoded", data = "<employee>")]
 pub fn post_employee(employee: Form<EmployeePostData>) {
     println!("Employee {}", employee.first_name);
+    // insert employee in DB
 }

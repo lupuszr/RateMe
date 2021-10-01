@@ -15,3 +15,9 @@ pub struct Skill {
     pub created_at: SystemTime,
     pub updated_at: SystemTime
 }
+
+#[derive(FromForm)]
+pub struct SkillPostData {
+    pub name: String,
+    pub category: String
+}
